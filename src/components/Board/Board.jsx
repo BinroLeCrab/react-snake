@@ -230,4 +230,4 @@ const Board = () => {
 
 export default Board;
 
-// 32 -> space bar
+// 32 -> space
