@@ -5,6 +5,7 @@ import s from './Board.module.scss';
 import Food from '../Food/Food';
 import { generateRandomCoordinates } from '../../utils/utils';
 import GameOver from '../GameOver/GameOver';
+import PauseScreen from '../PauseScreen/PauseScreen';
 
 const Board = () => {
 
@@ -15,6 +16,7 @@ const Board = () => {
     const [foodArray, setFoodArray] = useState([]);
     const [score, setScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
+    const [gamePaused, setGamePaused] = useState(false);
     const [speed, setSpeed] = useState(0.15);
 
     const timer = useRef(0);
@@ -125,6 +127,9 @@ const Board = () => {
         canChangeDirection.current = false;
 
         switch (e.keyCode) {
+            case 32: // Space
+                setGamePaused(!gamePaused);
+                break;
             case 38: // Up
             case 90: // Z
                 if (direction.current !== "DOWN") {
@@ -210,17 +215,19 @@ const Board = () => {
 
     return (
         <div className={s.board}>
-            <Snake data={snakeData} />
+            < Snake data={snakeData} />
+            {foodArray.map((coordinates) => (
+                < Food key={coordinates.id} coordinates={coordinates} />
+            ))}
 
             <span className={s.score}>Score: {score}</span>
 
-            {gameOver && <GameOver score={score} replay={replay} />}
+            {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen/> : null}
 
-            {foodArray.map((coordinates) => (
-                <Food key={coordinates.id} coordinates={coordinates} />
-            ))}
         </div>
     );
 }
 
 export default Board;
+
+// 32 -> space
