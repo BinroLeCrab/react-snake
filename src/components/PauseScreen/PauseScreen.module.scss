@@ -1,0 +1,14 @@
+.pauseScreen {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.24);
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+}

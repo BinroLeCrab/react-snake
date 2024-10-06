@@ -13,12 +13,12 @@ const Board = () => {
         [0, 0],
         [10, 0],
     ]);
-    const [foodArray, setFoodArray] = useState([]);
+    const [foodArray, setFoodArray] = useState([]); 
     const [score, setScore] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [gamePaused, setGamePaused] = useState(false);
     const [speed, setSpeed] = useState(0.15);
-
+    
     const timer = useRef(0);
     const foodTimer = useRef(0);
     const direction = useRef("RIGHT");
@@ -113,7 +113,7 @@ const Board = () => {
             if (snakeEatFood) {
                 newSnakeData.unshift([]);
                 setScore(score + 10);
-                if (speed > 0.05){
+                if (speed > 0.05) {
                     setSpeed(speed - 0.01);
                 }
             }
@@ -128,29 +128,29 @@ const Board = () => {
 
         switch (e.keyCode) {
             case 32: // Space
-                setGamePaused(!gamePaused);
+                setGamePaused(gamePaused ? false : true);
                 break;
             case 38: // Up
             case 90: // Z
-                if (direction.current !== "DOWN") {
+                if (direction.current !== "DOWN" && gamePaused === false) {
                     direction.current = "UP";
                 }
                 break;
             case 40: // Down
             case 83: // S
-                if (direction.current !== "UP") {
+                if (direction.current !== "UP" && gamePaused === false) {
                     direction.current = "DOWN";
                 }
                 break;
             case 37: // Left
             case 81: // Q
-                if (direction.current !== "RIGHT") {
+                if (direction.current !== "RIGHT" && gamePaused === false) {
                     direction.current = "LEFT";
                 }
                 break;
             case 39: // Rigth
             case 68: // D
-                if (direction.current !== "LEFT") {
+                if (direction.current !== "LEFT" && gamePaused === false) {
                     direction.current = "RIGHT";
                 }
                 break;
@@ -176,13 +176,13 @@ const Board = () => {
 
         if (foodTimer.current > 3 && foodArray.length < 5) {
             foodTimer.current = 0;
-            addFood();
+            if (!gamePaused) addFood();
         }
 
         if (timer.current > speed) {
             // console.log("Move snake");
             timer.current = 0;
-            moveSnake();
+            if (!gamePaused) moveSnake();
             canChangeDirection.current = true;
         }
     };
@@ -190,6 +190,7 @@ const Board = () => {
     const replay = () => {
         // replay game
         setGameOver(false);
+        setGamePaused(false);
         setFoodArray([]);
         setSnakeData([
             [0, 0],
@@ -203,6 +204,10 @@ const Board = () => {
         foodTimer.current = 0;
     };
 
+    const quitPause = () => {
+        setGamePaused(false);
+    }
+
     useEffect(() => {
         window.addEventListener("keydown", onKeyDown);
         gsap.ticker.add(gameLoop);
@@ -211,7 +216,7 @@ const Board = () => {
             window.removeEventListener("keydown", onKeyDown);
             gsap.ticker.remove(gameLoop);
         }
-    }, [snakeData]);
+    }, [snakeData, gamePaused]);
 
     return (
         <div className={s.board}>
@@ -222,7 +227,7 @@ const Board = () => {
 
             <span className={s.score}>Score: {score}</span>
 
-            {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen/> : null}
+            {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
 
         </div>
     );
