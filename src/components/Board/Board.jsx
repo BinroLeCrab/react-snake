@@ -3,11 +3,14 @@ import gsap from "gsap";
 import Snake from '../Snake/Snake';
 import s from './Board.module.scss';
 import Food from '../Food/Food';
-import { generateRandomCoordinates } from '../../utils/utils';
+import { generateRandomCoordinates, defaultControls, reversedControls } from '../../utils/utils';
 import GameOver from '../GameOver/GameOver';
 import PauseScreen from '../PauseScreen/PauseScreen';
+import useStore from '../../utils/store';
 
 const Board = () => {
+
+    const { mode, removeMode } = useStore();
 
     const [snakeData, setSnakeData] = useState([
         [0, 0],
@@ -115,6 +118,7 @@ const Board = () => {
                 setScore(score + 10);
                 if (speed > 0.05) {
                     setSpeed(speed - 0.01);
+                    console.log("vitesse : ", speed);
                 }
             }
             setSnakeData(newSnakeData);
@@ -126,43 +130,47 @@ const Board = () => {
         if (canChangeDirection.current === false) return;
         canChangeDirection.current = false;
 
-        switch (e.keyCode) {
-            case 32: // Space
-                setGamePaused(gamePaused ? false : true);
-                break;
-            case 38: // Up
-            case 90: // Z
-                if (direction.current !== "DOWN" && gamePaused === false) {
-                    direction.current = "UP";
-                }
-                break;
-            case 40: // Down
-            case 83: // S
-                if (direction.current !== "UP" && gamePaused === false) {
-                    direction.current = "DOWN";
-                }
-                break;
-            case 37: // Left
-            case 81: // Q
-                if (direction.current !== "RIGHT" && gamePaused === false) {
-                    direction.current = "LEFT";
-                }
-                break;
-            case 39: // Rigth
-            case 68: // D
-                if (direction.current !== "LEFT" && gamePaused === false) {
-                    direction.current = "RIGHT";
-                }
-                break;
+        mode.includes("reversed") 
+            ? reversedControls(e, direction, gamePaused, setGamePaused)
+            : defaultControls(e, direction, gamePaused, setGamePaused);
 
-            default:
-                break;
-        }
+        // switch (e.keyCode) {
+        //     case 32: // Space
+        //         setGamePaused(gamePaused ? false : true);
+        //         break;
+        //     case 38: // Up
+        //     case 90: // Z
+        //         if (direction.current !== "DOWN" && gamePaused === false) {
+        //             direction.current = "UP";
+        //         }
+        //         break;
+        //     case 40: // Down
+        //     case 83: // S
+        //         if (direction.current !== "UP" && gamePaused === false) {
+        //             direction.current = "DOWN";
+        //         }
+        //         break;
+        //     case 37: // Left
+        //     case 81: // Q
+        //         if (direction.current !== "RIGHT" && gamePaused === false) {
+        //             direction.current = "LEFT";
+        //         }
+        //         break;
+        //     case 39: // Rigth
+        //     case 68: // D
+        //         if (direction.current !== "LEFT" && gamePaused === false) {
+        //             direction.current = "RIGHT";
+        //         }
+        //         break;
+
+        //     default:
+        //         break;
+        // }
     };
 
     const addFood = () => {
         //génération de coordonée
-        const coordinates = generateRandomCoordinates();
+        const coordinates = generateRandomCoordinates(mode);
 
         //mise à jour du state
         setFoodArray((oldFoodArray) => [...oldFoodArray, coordinates]);
@@ -179,7 +187,7 @@ const Board = () => {
             if (!gamePaused) addFood();
         }
 
-        if (timer.current > speed) {
+        if (timer.current > (mode.includes("impossible") ? 0.02 : speed)) {
             // console.log("Move snake");
             timer.current = 0;
             if (!gamePaused) moveSnake();
@@ -189,6 +197,9 @@ const Board = () => {
 
     const replay = () => {
         // replay game
+        // removeMode("impossible");
+        // removeMode("corner");
+
         setGameOver(false);
         setGamePaused(false);
         setFoodArray([]);
