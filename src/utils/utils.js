@@ -1,4 +1,5 @@
 import uniqid from 'uniqid';
+import gsap from 'gsap';
 
 export const generateRandomCoordinates = (mode) => {
     // console.log("generateRandomCoordinates");
@@ -117,3 +118,39 @@ export const reversedControls = (e, direction, gamePaused, setGamePaused) => {
             break;
     }
 };
+
+const flashbangAudio = new Audio("/audio/csgo-flashbang.mp3");
+let flashTween = null;
+
+export const flashUser = () => {
+
+    if (flashTween) flashTween.kill();
+    flashbangAudio.currentTime = 0;
+
+    flashbangAudio.play();
+    document.querySelector(".flashbang").style.opacity = "1";
+
+    flashTween = gsap.to(".flashbang", {
+        opacity: 0,
+        duration: 2,
+        delay: 0.25
+    });
+
+}
+
+export const wizz = () => {
+    gsap.to("#board", {
+        duration: 0.05,
+        x: "+=30%",
+        yoyo: true,
+        repeat: 5,
+    })
+};
+
+const mlemAudio = new Audio("/audio/mlem.mp3");
+
+export const mlem = () => {
+    mlemAudio.currentTime = 0;
+
+    mlemAudio.play();
+}
