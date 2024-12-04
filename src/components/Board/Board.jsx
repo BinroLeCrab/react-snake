@@ -14,7 +14,7 @@ const Board = () => {
 
     const [snakeData, setSnakeData] = useState([
         [0, 0],
-        [10, 0],
+        [12, 0],
     ]);
     const [foodArray, setFoodArray] = useState([]); 
     const [trapArray, setTrapArray] = useState([]); 
@@ -42,7 +42,7 @@ const Board = () => {
         const head = snakeData[snakeData.length - 1];
         // console.log(head);
 
-        if (head[0] >= 500 || head[1] >= 500 || head[0] < 0 || head[1] < 0) {
+        if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
             return true;
         } else {
             return false;
@@ -87,19 +87,19 @@ const Board = () => {
 
         switch (direction.current) {
             case "UP":
-                head = [head[0], head[1] - 10];
+                head = [head[0], head[1] - 12];
 
                 break;
             case "DOWN":
-                head = [head[0], head[1] + 10];
+                head = [head[0], head[1] + 12];
 
                 break;
             case "LEFT":
-                head = [head[0] - 10, head[1]];
+                head = [head[0] - 12, head[1]];
 
                 break;
             case "RIGHT":
-                head = [head[0] + 10, head[1]];
+                head = [head[0] + 12, head[1]];
 
                 break;
 
@@ -237,7 +237,7 @@ const Board = () => {
         setTrapArray([]);
         setSnakeData([
             [0, 0],
-            [10, 0],
+            [12, 0],
         ]);
         setSpeed(0.2);
         setScore(0);

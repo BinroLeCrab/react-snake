@@ -18,31 +18,31 @@ export const generateRandomCoordinates = (mode) => {
 
         if (side <= 0.25) {
             // générer à gauche
-            x = max * 10;
+            x = max * 12;
             y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
-            y *= 10;
+            y *= 12;
         } else if (side > 0.25 && side <= 0.5) {
             // générer en droite
             x = min;
             y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
-            y *= 10;
+            y *= 12;
         } else if (side > 0.5 && side <= 0.75) {
             // générer en bas
-            y = max * 10;
+            y = max * 12;
             x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
-            x *= 10;
+            x *= 12;
         } else if (side > 0.75) {
             // générer en haut
             y = min;
             x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
-            x *= 10;
+            x *= 12;
         }
 
     } else {
         x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
-        x *= 10;
+        x *= 12;
         y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2;
-        y *= 10;
+        y *= 12;
     }
 
 
