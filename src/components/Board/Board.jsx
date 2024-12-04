@@ -278,7 +278,7 @@ const Board = () => {
     return (
         <>
             <div className={s.board} id='board'>
-                < Snake data={snakeData} />
+                < Snake data={snakeData} direction={direction} />
 
                 {foodArray.map((coordinates) => (
                     < Item key={coordinates.id} coordinates={coordinates} type="food" />
