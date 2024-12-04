@@ -20,3 +20,13 @@ body {
   opacity: 0;
   pointer-events: none;
 }
+
+.dropzone {
+  position: fixed;
+  width: 500px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
