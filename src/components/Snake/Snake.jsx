@@ -19,7 +19,6 @@ const Snake = ({ data }) => {
         <>
             {
                 dataReversed.map((dot, i) => (
-                    console.log(dot),
                     <div
                         key={i}
                         className={s.snakeDot}

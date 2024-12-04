@@ -273,12 +273,9 @@ const Board = () => {
             {trapArray.map((coordinates) => (
                 < Item key={coordinates.id} coordinates={coordinates} type="trap"/>
             ))}
-
-            <span className={s.score}>Score: {score}</span>
-
             
-
         </div>
+            <span className={s.score}>Score: {score}</span>
         {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
         </>
     );

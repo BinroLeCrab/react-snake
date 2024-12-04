@@ -9,10 +9,19 @@
     bottom: 0;
     margin: auto;
 
-    .score {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        color: white;
+    overflow: hidden;
+}
+
+.score {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .board {
+        scale: 0.75;
     }
+    
 }
