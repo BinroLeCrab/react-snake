@@ -16,14 +16,15 @@ const Board = () => {
         [0, 0],
         [12, 0],
     ]);
-    const [foodArray, setFoodArray] = useState([]); 
-    const [trapArray, setTrapArray] = useState([]); 
+    const [foodArray, setFoodArray] = useState([]);
+    const [trapArray, setTrapArray] = useState([]);
 
     const [score, setScore] = useState(0);
+    const [death, setDeath] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [gamePaused, setGamePaused] = useState(false);
     const [speed, setSpeed] = useState(0.15);
-    
+
     const timer = useRef(0);
     const foodTimer = useRef(0);
     const trapTimer = useRef(0);
@@ -35,11 +36,13 @@ const Board = () => {
         console.log("Game Over");
 
         gsap.ticker.remove(gameLoop);
+
+        setDeath(death + 1);
         setGameOver(true);
     };
 
-    const isOutOfBorder = () => {
-        const head = snakeData[snakeData.length - 1];
+    const isOutOfBorder = (head) => {
+        // const head = snakeData[snakeData.length - 1];
         // console.log(head);
 
         if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
@@ -49,7 +52,7 @@ const Board = () => {
         }
     };
 
-    const hasEatenItem = ({getter, setter}) => {
+    const hasEatenItem = ({ getter, setter }) => {
         const head = snakeData[snakeData.length - 1];
 
         const item = getter.find(
@@ -67,9 +70,9 @@ const Board = () => {
         }
     }
 
-    const hasCollapsed = () => {
+    const hasCollapsed = (head) => {
         let snake = [...snakeData];
-        let head = snake[snake.length - 1];
+        // let head = snake[snake.length - 1];
         snake.pop();
 
         for (let i = 0; i < snake.length; i++) {
@@ -110,8 +113,8 @@ const Board = () => {
         newSnakeData.push(head);
         newSnakeData.shift();
 
-        const snakeCollapsed = hasCollapsed();
-        const outOfBorder = isOutOfBorder();
+        const snakeCollapsed = hasCollapsed(head);
+        const outOfBorder = isOutOfBorder(head);
         const snakeEatFood = hasEatenItem({
             getter: foodArray,
             setter: setFoodArray
@@ -129,9 +132,9 @@ const Board = () => {
                 // trap execution logic
                 // const effects = [flashUser, wizz];
                 const effects = [flashUser, wizz];
-        
+
                 const selectedEffect = effects[Math.floor(Math.random() * effects.length)];
-        
+
                 selectedEffect();
             }
 
@@ -155,7 +158,7 @@ const Board = () => {
         if (canChangeDirection.current === false) return;
         canChangeDirection.current = false;
 
-        mode.includes("reversed") 
+        mode.includes("reversed")
             ? reversedControls(e, direction, gamePaused, setGamePaused)
             : defaultControls(e, direction, gamePaused, setGamePaused);
 
@@ -193,9 +196,20 @@ const Board = () => {
         // }
     };
 
-    const addItem = ({getter, setter}) => {
+    const addItem = ({ getter, setter }) => {
         //génération de coordonée
         const coordinates = generateRandomCoordinates(mode);
+
+        const superArray = [...foodArray, ...trapArray];
+
+        const itemAlreadyExistsHere = superArray.some(
+            (item) => item.x === coordinates.x && coordinates.y === item.y
+        );
+
+        if (itemAlreadyExistsHere) {
+            addItem({ getter, setter });
+            return;
+        }
 
         //mise à jour du state
         setter((oldArray) => [...oldArray, coordinates]);
@@ -210,12 +224,12 @@ const Board = () => {
 
         if (foodTimer.current > 3 && foodArray.length < 5) {
             foodTimer.current = 0;
-            if (!gamePaused) addItem({getter: foodArray, setter: setFoodArray});
+            if (!gamePaused) addItem({ getter: foodArray, setter: setFoodArray });
         }
 
         if (trapTimer.current > 5 && trapArray.length < 3) {
             trapTimer.current = 0;
-            if (!gamePaused) addItem({getter: trapArray, setter: setTrapArray});
+            if (!gamePaused) addItem({ getter: trapArray, setter: setTrapArray });
         }
 
         if (timer.current > (mode.includes("impossible") ? 0.02 : speed)) {
@@ -263,20 +277,20 @@ const Board = () => {
 
     return (
         <>
-        <div className={s.board} id='board'>
-            < Snake data={snakeData} />
+            <div className={s.board} id='board'>
+                < Snake data={snakeData} />
 
-            {foodArray.map((coordinates) => (
-                < Item key={coordinates.id} coordinates={coordinates} type="food"/>
-            ))}
+                {foodArray.map((coordinates) => (
+                    < Item key={coordinates.id} coordinates={coordinates} type="food" />
+                ))}
 
-            {trapArray.map((coordinates) => (
-                < Item key={coordinates.id} coordinates={coordinates} type="trap"/>
-            ))}
-            
-        </div>
-            <span className={s.score}>Score: {score}</span>
-        {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
+                {trapArray.map((coordinates) => (
+                    < Item key={coordinates.id} coordinates={coordinates} type="trap" />
+                ))}
+                <span className={s.score}>Score: {score}</span>
+                <span className={s.death}>Death: {death}</span>
+            </div>
+            {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
         </>
     );
 }

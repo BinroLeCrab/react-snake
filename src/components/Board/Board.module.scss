@@ -9,15 +9,21 @@
     bottom: 0;
     margin: auto;
 
-    overflow: hidden;
+    .score {
+        position: relative;
+        top: 100%;
+        left: 0;
+        color: white;
+    }
+    
+    .death {
+        position: relative;
+        top: 100%;
+        right: 0;
+        color: white;
+    }
 }
 
-.score {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    color: white;
-}
 
 @media (max-width: 600px) {
     .board {
