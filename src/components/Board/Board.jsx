@@ -23,7 +23,7 @@ const Board = () => {
     const [death, setDeath] = useState(0);
     const [gameOver, setGameOver] = useState(false);
     const [gamePaused, setGamePaused] = useState(false);
-    const [speed, setSpeed] = useState(0.15);
+    const [speed, setSpeed] = useState(0.2);
 
     const timer = useRef(0);
     const foodTimer = useRef(0);
