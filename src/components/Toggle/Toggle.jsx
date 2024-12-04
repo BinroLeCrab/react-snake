@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import s from './Toggle.module.scss';
 import useStore from '../../utils/store';
 
