@@ -262,6 +262,7 @@ const Board = () => {
     }, [snakeData, gamePaused]);
 
     return (
+        <>
         <div className={s.board} id='board'>
             < Snake data={snakeData} />
 
@@ -275,9 +276,11 @@ const Board = () => {
 
             <span className={s.score}>Score: {score}</span>
 
-            {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
+            
 
         </div>
+        {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
+        </>
     );
 }
 
