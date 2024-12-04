@@ -290,7 +290,7 @@ const Board = () => {
                 <span className={s.score}>Score: {score}</span>
                 <span className={s.death}>Death: {death}</span>
             </div>
-            {gameOver ? < GameOver score={score} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
+            {gameOver ? < GameOver score={score} death={death} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
         </>
     );
 }
