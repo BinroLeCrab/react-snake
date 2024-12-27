@@ -10,7 +10,7 @@ import useStore from '../../utils/store';
 
 const Board = () => {
 
-    const { mode, removeMode } = useStore();
+    const { mode, mute } = useStore();
 
     const [snakeData, setSnakeData] = useState([
         [0, 0],
@@ -126,7 +126,7 @@ const Board = () => {
         } else {
             if (snakeEatTrap === true) {
                 // trap execution logic
-                const effects = [flashUser, wizz];
+                const effects = [() => flashUser(mute)];
 
                 const selectedEffect = effects[Math.floor(Math.random() * effects.length)];
 
@@ -135,7 +135,7 @@ const Board = () => {
 
             if (snakeEatFood === true) {
 
-                mlem();
+                mlem(mute);
 
                 newSnakeData.unshift(newSnakeData[0]);
                 setScore(score + 10);

@@ -122,12 +122,12 @@ export const reversedControls = (e, direction, gamePaused, setGamePaused) => {
 const flashbangAudio = new Audio("/audio/csgo-flashbang.mp3");
 let flashTween = null;
 
-export const flashUser = () => {
+export const flashUser = (mute) => {
 
     if (flashTween) flashTween.kill();
     flashbangAudio.currentTime = 0;
 
-    flashbangAudio.play();
+    !mute && flashbangAudio.play();
     document.querySelector(".flashbang").style.opacity = "1";
 
     flashTween = gsap.to(".flashbang", {
@@ -149,8 +149,8 @@ export const wizz = () => {
 
 const mlemAudio = new Audio("/audio/mlem.mp3");
 
-export const mlem = () => {
+export const mlem = (mute) => {
     mlemAudio.currentTime = 0;
 
-    mlemAudio.play();
+    !mute && mlemAudio.play();
 }

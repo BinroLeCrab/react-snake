@@ -2,6 +2,7 @@ import Board from "./components/Board/Board";
 import Toggle from "./components/Toggle/Toggle";
 import {useDropzone} from 'react-dropzone';
 import useStore from "./utils/store";
+import Mute from "./components/Mute/Mute";
 
 function App() {
   const { skin, setSkin, mute, setMute } = useStore();
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <div>
+      <Mute />
       <div className="flashbang"></div>
       <Board />
       <div {...getRootProps({className: 'dropzone'})}>
