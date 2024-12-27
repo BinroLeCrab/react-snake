@@ -5,8 +5,13 @@ const Mute = () => {
 
     const { mute, setMute } = useStore();
 
+    const handleClick = (e) => {
+        setMute(mute);
+        document.activeElement.blur();
+    };
+
     return (
-        <button className={s["Mute-btn"]} onClick={() => {setMute(mute)}}>
+        <button className={s["Mute-btn"]} onClick={handleClick}>
             {mute ? "Unmute" : "Mute"}
         </button>
     );
