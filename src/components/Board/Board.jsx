@@ -42,9 +42,6 @@ const Board = () => {
     };
 
     const isOutOfBorder = (head) => {
-        // const head = snakeData[snakeData.length - 1];
-        // console.log(head);
-
         if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
             return true;
         } else {
@@ -72,7 +69,6 @@ const Board = () => {
 
     const hasCollapsed = (head) => {
         let snake = [...snakeData];
-        // let head = snake[snake.length - 1];
         snake.pop();
 
         for (let i = 0; i < snake.length; i++) {
@@ -130,7 +126,6 @@ const Board = () => {
         } else {
             if (snakeEatTrap === true) {
                 // trap execution logic
-                // const effects = [flashUser, wizz];
                 const effects = [flashUser, wizz];
 
                 const selectedEffect = effects[Math.floor(Math.random() * effects.length)];
@@ -142,14 +137,10 @@ const Board = () => {
 
                 mlem();
 
-                console.log(newSnakeData);
-
                 newSnakeData.unshift(newSnakeData[0]);
-                console.log(newSnakeData);
                 setScore(score + 10);
                 if (speed > 0.05) {
                     setSpeed(speed - 0.01);
-                    console.log("vitesse : ", speed);
                 }
             }
             setSnakeData(newSnakeData);
@@ -162,39 +153,6 @@ const Board = () => {
         canChangeDirection.current = false;
 
         defaultControls(e, direction, gamePaused, setGamePaused);
-
-        // switch (e.keyCode) {
-        //     case 32: // Space
-        //         setGamePaused(gamePaused ? false : true);
-        //         break;
-        //     case 38: // Up
-        //     case 90: // Z
-        //         if (direction.current !== "DOWN" && gamePaused === false) {
-        //             direction.current = "UP";
-        //         }
-        //         break;
-        //     case 40: // Down
-        //     case 83: // S
-        //         if (direction.current !== "UP" && gamePaused === false) {
-        //             direction.current = "DOWN";
-        //         }
-        //         break;
-        //     case 37: // Left
-        //     case 81: // Q
-        //         if (direction.current !== "RIGHT" && gamePaused === false) {
-        //             direction.current = "LEFT";
-        //         }
-        //         break;
-        //     case 39: // Rigth
-        //     case 68: // D
-        //         if (direction.current !== "LEFT" && gamePaused === false) {
-        //             direction.current = "RIGHT";
-        //         }
-        //         break;
-
-        //     default:
-        //         break;
-        // }
     };
 
     const addItem = ({ getter, setter }) => {
@@ -217,7 +175,6 @@ const Board = () => {
     };
 
     const gameLoop = (time, deltaTime, frame) => {
-        // console.log(time, deltaTime, frame);
 
         timer.current += deltaTime * 0.001;
         foodTimer.current += deltaTime * 0.001;
@@ -234,7 +191,6 @@ const Board = () => {
         }
 
         if (timer.current > (speed)) {
-            // console.log("Move snake");
             timer.current = 0;
             if (!gamePaused) moveSnake();
             canChangeDirection.current = true;
@@ -243,8 +199,6 @@ const Board = () => {
 
     const replay = () => {
         // replay game
-        // removeMode("impossible");
-        // removeMode("corner");
 
         setGameOver(false);
         setGamePaused(false);
@@ -297,5 +251,3 @@ const Board = () => {
 }
 
 export default Board;
-
-// 32 -> space

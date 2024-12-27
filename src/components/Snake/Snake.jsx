@@ -2,9 +2,7 @@ import s from './Snake.module.scss';
 import useStore from "../../utils/store";
 
 const Snake = ({ data, direction }) => {
-
-    console.log(direction.current);
-
+    
     const dataReversed = [...data].reverse();
 
     const { skin } = useStore();

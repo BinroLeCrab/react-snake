@@ -19,8 +19,6 @@ function App() {
     // noClick: true,
   });
 
-  console.log(acceptedFiles);
-
   const onDrop = (file) => {
     console.log(file);
     const src = URL.createObjectURL(file[0]);
