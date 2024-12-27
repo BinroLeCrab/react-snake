@@ -6,11 +6,12 @@ import Item from '../Item/Item';
 import { generateRandomCoordinates, defaultControls, reversedControls, flashUser, mlem, triggerMode, wizz } from '../../utils/utils';
 import GameOver from '../GameOver/GameOver';
 import PauseScreen from '../PauseScreen/PauseScreen';
+import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
 
-const Board = () => {
+const Board = ({setPlay}) => {
 
-    const { mode, mute } = useStore();
+    const { skin, setSkin, mode, mute } = useStore();
 
     const [snakeData, setSnakeData] = useState([
         [0, 0],
@@ -31,6 +32,25 @@ const Board = () => {
 
     const direction = useRef("RIGHT");
     const canChangeDirection = useRef(true);
+
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+        accept: {
+            "image/jpeg": [],
+            "image/png": [],
+            "image/webp": [],
+            "image/svg": [],
+            "image/gif": [],
+        },
+        maxFiles: 1,
+        onDrop: (file) => onDrop(file),
+        // noClick: true,
+    });
+
+    const onDrop = (file) => {
+        console.log(file);
+        const src = URL.createObjectURL(file[0]);
+        setSkin(src);
+    };
 
     const gameIsOver = () => {
         console.log("Game Over");
@@ -126,11 +146,12 @@ const Board = () => {
         } else {
             if (snakeEatTrap === true) {
                 // trap execution logic
-                const effects = [() => flashUser(mute)];
+                const effects = [() => flashUser(mute), wizz];
 
                 const selectedEffect = effects[Math.floor(Math.random() * effects.length)];
 
                 selectedEffect();
+                score > 0 && setScore(score - 5);
             }
 
             if (snakeEatFood === true) {
@@ -232,6 +253,14 @@ const Board = () => {
 
     return (
         <>
+            <div className="flashbang"></div>
+
+            <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+                {skin && <img src={skin} style={{ width: "30px" }} alt="" />}
+            </div>
+
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
 
@@ -245,7 +274,7 @@ const Board = () => {
                 <span className={s.score}>Score: {score}</span>
                 <span className={s.death}>Death: {death}</span>
             </div>
-            {gameOver ? < GameOver score={score} death={death} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
+            {gameOver ? < GameOver score={score} death={death} replay={replay} setPlay={setPlay} /> : gamePaused ? < PauseScreen setPlay={setPlay} quitPause={quitPause} /> : null}
         </>
     );
 }
