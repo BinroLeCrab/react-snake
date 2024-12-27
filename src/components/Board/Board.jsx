@@ -161,9 +161,7 @@ const Board = () => {
         if (canChangeDirection.current === false) return;
         canChangeDirection.current = false;
 
-        mode.includes("reversed")
-            ? reversedControls(e, direction, gamePaused, setGamePaused)
-            : defaultControls(e, direction, gamePaused, setGamePaused);
+        defaultControls(e, direction, gamePaused, setGamePaused);
 
         // switch (e.keyCode) {
         //     case 32: // Space
@@ -235,7 +233,7 @@ const Board = () => {
             if (!gamePaused) addItem({ getter: trapArray, setter: setTrapArray });
         }
 
-        if (timer.current > (mode.includes("impossible") ? 0.02 : speed)) {
+        if (timer.current > (speed)) {
             // console.log("Move snake");
             timer.current = 0;
             if (!gamePaused) moveSnake();

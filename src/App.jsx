@@ -31,11 +31,6 @@ function App() {
     <div>
       <div className="flashbang"></div>
       <Board />
-      <div className="toggle-wrapper">
-        <Toggle mode={"corner"} />
-        <Toggle mode={"impossible"}/>
-        <Toggle mode={"reversed"}/>
-      </div>
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
