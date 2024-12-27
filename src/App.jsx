@@ -5,6 +5,7 @@ import useStore from "./utils/store";
 import Mute from "./components/Mute/Mute";
 import { useState } from "react";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
+import BoardChill from "./components/BoardChill/BoardChill";
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
       <Mute />
       {play === "classic" ?
         <Board setPlay={setPlay} />
-        : play === "chill" ? <p>Chill</p>
+        : play === "chill" ? <BoardChill setPlay={setPlay} />
         : <HomeScreen setPlay={setPlay} />
       }
 
