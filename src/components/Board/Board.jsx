@@ -142,7 +142,10 @@ const Board = () => {
 
                 mlem();
 
-                newSnakeData.unshift([]);
+                console.log(newSnakeData);
+
+                newSnakeData.unshift(newSnakeData[0]);
+                console.log(newSnakeData);
                 setScore(score + 10);
                 if (speed > 0.05) {
                     setSpeed(speed - 0.01);
