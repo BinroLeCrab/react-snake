@@ -4,7 +4,7 @@ import {useDropzone} from 'react-dropzone';
 import useStore from "./utils/store";
 
 function App() {
-  const { skin, setSkin } = useStore();
+  const { skin, setSkin, mute, setMute } = useStore();
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept:  {

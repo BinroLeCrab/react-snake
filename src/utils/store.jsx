@@ -7,6 +7,11 @@ const useStore = create((set) => ({
         skin: param
     }),
 
+    mute: false,
+    setMute: (param) => set({ 
+        mute: !param
+    }),
+
     mode: [],
     addMode: (param) =>
         set((state) => ({
