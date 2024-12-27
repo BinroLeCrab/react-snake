@@ -1,5 +1,5 @@
 .board {
-    background-color: white;
+    background: url('./../../../public/asset/Board.jpg');
     width: 600px;
     height: 600px;
     position: fixed;
@@ -8,6 +8,9 @@
     right: 0;
     bottom: 0;
     margin: auto;
+    border-radius: 8px;
+    border: 1px solid #081132;
+    outline: 5px solid #3A466C;
 
     .score {
         position: relative;
