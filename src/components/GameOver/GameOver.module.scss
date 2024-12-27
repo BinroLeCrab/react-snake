@@ -1,6 +1,7 @@
 .gameOver {
-    background-color: black;
-    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.24);
+    width: 100vw;
     height: 100vh;
     z-index: 100;
     color: white;
@@ -10,5 +11,4 @@
     justify-content: center;
     left: 0;
     top: 0;
-    position: absolute;
 }
