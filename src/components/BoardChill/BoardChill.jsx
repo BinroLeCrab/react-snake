@@ -8,7 +8,7 @@ import useStore from '../../utils/store';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import Canvas from '../Canvas/Canvas';
 
-const BoardChill = ({setPlay}) => {
+const BoardChill = ({ setPlay }) => {
 
     const { mute } = useStore();
 
@@ -20,11 +20,11 @@ const BoardChill = ({setPlay}) => {
     ]);
     const [pixelArray, setPixelArray] = useState([
         {
-            coo: [0,0],
+            coo: [0, 0],
             color: color
         }
     ]);
-    
+
 
     const [gamePaused, setGamePaused] = useState(false);
     const speed = 0.2;
@@ -34,13 +34,20 @@ const BoardChill = ({setPlay}) => {
     const direction = useRef("RIGHT");
     const canChangeDirection = useRef(true);
 
-    // const isOutOfBorder = (head) => {
-    //     if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // };
+    const isOutOfBorder = (head) => {
+        if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
+            if (head[0] >= 600) {
+                head[0] = 0;
+            } else if (head[1] >= 600) {
+                head[1] = 0;
+            } else if (head[0] < 0) {
+                head[0] = 588;
+            } else if (head[1] < 0) {
+                head[1] = 588;
+            }
+        }
+        return head;
+    };
 
 
     const moveSnake = () => {
@@ -69,15 +76,17 @@ const BoardChill = ({setPlay}) => {
                 break;
         }
 
+        isOutOfBorder(head);
+
         newSnakeData.push(head);
         let queu = newSnakeData.shift();
 
         let newPixelArray = [...pixelArray];
         const alreadyPixel = pixelArray.find(pixel => pixel.coo[0] === queu[0] && pixel.coo[1] === queu[1]);
-        if(alreadyPixel) {
+        if (alreadyPixel) {
             newPixelArray = pixelArray.filter(pixel => pixel !== alreadyPixel);
         }
-        newPixelArray.push({coo: queu, color: color});
+        newPixelArray.push({ coo: queu, color: color });
 
         setPixelArray(newPixelArray);
 
@@ -135,7 +144,7 @@ const BoardChill = ({setPlay}) => {
             <ColorPicker color={color} setColor={setColor} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
-                < Canvas pixels={pixelArray}/>
+                < Canvas pixels={pixelArray} />
             </div>
             {gamePaused && < PauseScreen setPlay={setPlay} quitPause={quitPause} restart={restart} />}
         </>
