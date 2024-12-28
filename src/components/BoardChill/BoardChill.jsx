@@ -8,8 +8,8 @@ import GameOver from '../GameOver/GameOver';
 import PauseScreen from '../PauseScreen/PauseScreen';
 import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
-import Pixel from '../Pixel/Pixel';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import Canvas from '../Canvas/Canvas';
 
 const BoardChill = ({setPlay}) => {
 
@@ -138,10 +138,7 @@ const BoardChill = ({setPlay}) => {
             <ColorPicker color={color} setColor={setColor} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
-
-                {pixelArray.map((pixel, key) => (
-                    <Pixel key={key} x={pixel.coo[0]} y={pixel.coo[1]} color={pixel.color} />
-                ))}
+                < Canvas pixels={pixelArray}/>
             </div>
             {gamePaused && < PauseScreen setPlay={setPlay} quitPause={quitPause} restart={restart} />}
         </>
