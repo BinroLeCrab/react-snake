@@ -2,18 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from "gsap";
 import Snake from '../Snake/Snake';
 import s from './BoardChill.module.scss';
-import Item from '../Item/Item';
-import { generateRandomCoordinates, defaultControls, reversedControls, flashUser, mlem, triggerMode, wizz } from '../../utils/utils';
-import GameOver from '../GameOver/GameOver';
+import { defaultControls } from '../../utils/utils';
 import PauseScreen from '../PauseScreen/PauseScreen';
-import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import Canvas from '../Canvas/Canvas';
 
 const BoardChill = ({setPlay}) => {
 
-    const { skin, setSkin, mode, mute } = useStore();
+    const { mute } = useStore();
 
     const [color, setColor] = useState('#FF0000');
     const [snakeData, setSnakeData] = useState([
