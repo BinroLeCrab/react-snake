@@ -9,11 +9,13 @@ import PauseScreen from '../PauseScreen/PauseScreen';
 import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
 import Pixel from '../Pixel/Pixel';
+import ColorPicker from '../ColorPicker/ColorPicker';
 
 const BoardChill = ({setPlay}) => {
 
     const { skin, setSkin, mode, mute } = useStore();
 
+    const [color, setColor] = useState('#FF0000');
     const [snakeData, setSnakeData] = useState([
         [0, 0],
         [12, 0],
@@ -22,10 +24,10 @@ const BoardChill = ({setPlay}) => {
     const [pixelArray, setPixelArray] = useState([
         {
             coo: [0,0],
-            color: "red"
+            color: color
         }
     ]);
-    const [color, setColor] = useState("red");
+    
 
     const [gamePaused, setGamePaused] = useState(false);
     const speed = 0.2;
@@ -81,7 +83,6 @@ const BoardChill = ({setPlay}) => {
         newPixelArray.push({coo: queu, color: color});
 
         setPixelArray(newPixelArray);
-        console.log(newPixelArray);
 
         setSnakeData(newSnakeData);
     };
@@ -134,6 +135,7 @@ const BoardChill = ({setPlay}) => {
 
     return (
         <>
+            <ColorPicker color={color} setColor={setColor} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
 
