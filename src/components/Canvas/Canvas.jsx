@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import s from "./Canvas.module.scss";
 
-const Canvas= ({pixels}) => {
-    const canvasRef = useRef();
+const Canvas= ({pixels, canvasRef}) => {
 
     useEffect(() => {
         var ctx = canvasRef.current.getContext("2d");

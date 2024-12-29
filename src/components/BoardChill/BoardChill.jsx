@@ -33,6 +33,7 @@ const BoardChill = ({ setPlay }) => {
 
     const direction = useRef("RIGHT");
     const canChangeDirection = useRef(true);
+    const canvasRef = useRef();
 
     const isOutOfBorder = (head) => {
         if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
@@ -145,9 +146,9 @@ const BoardChill = ({ setPlay }) => {
             <ColorPicker color={color} setColor={setColor} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
-                < Canvas pixels={pixelArray} />
+                < Canvas pixels={pixelArray} canvasRef={canvasRef} />
             </div>
-            {gamePaused && < PauseScreen setPlay={setPlay} quitPause={quitPause} restart={restart} />}
+            {gamePaused && < PauseScreen setPlay={setPlay} quitPause={quitPause} restart={restart} chill gamePaused={gamePaused} canvasRef={canvasRef} />}
         </>
     );
 }
