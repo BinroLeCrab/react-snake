@@ -8,6 +8,7 @@ import GameOver from '../GameOver/GameOver';
 import PauseScreen from '../PauseScreen/PauseScreen';
 import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
+import Audio from '../Audio/Audio';
 
 const Board = ({setPlay}) => {
 
@@ -253,6 +254,7 @@ const Board = ({setPlay}) => {
 
     return (
         <>
+            <Audio />
             <div className="flashbang"></div>
 
             <div {...getRootProps({ className: 'dropzone' })}>

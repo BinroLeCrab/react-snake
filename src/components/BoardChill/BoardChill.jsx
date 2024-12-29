@@ -142,7 +142,7 @@ const BoardChill = ({ setPlay }) => {
 
     return (
         <>
-            <Audio />
+            <Audio chill/>
             <ColorPicker color={color} setColor={setColor} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
