@@ -6,11 +6,13 @@ import Item from '../Item/Item';
 import { generateRandomCoordinates, defaultControls, reversedControls, flashUser, mlem, triggerMode, wizz } from '../../utils/utils';
 import GameOver from '../GameOver/GameOver';
 import PauseScreen from '../PauseScreen/PauseScreen';
+import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
+import Audio from '../Audio/Audio';
 
-const Board = () => {
+const Board = ({setPlay}) => {
 
-    const { mode, removeMode } = useStore();
+    const { skin, setSkin, mode, mute } = useStore();
 
     const [snakeData, setSnakeData] = useState([
         [0, 0],
@@ -32,6 +34,25 @@ const Board = () => {
     const direction = useRef("RIGHT");
     const canChangeDirection = useRef(true);
 
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+        accept: {
+            "image/jpeg": [],
+            "image/png": [],
+            "image/webp": [],
+            "image/svg": [],
+            "image/gif": [],
+        },
+        maxFiles: 1,
+        onDrop: (file) => onDrop(file),
+        // noClick: true,
+    });
+
+    const onDrop = (file) => {
+        console.log(file);
+        const src = URL.createObjectURL(file[0]);
+        setSkin(src);
+    };
+
     const gameIsOver = () => {
         console.log("Game Over");
 
@@ -42,9 +63,6 @@ const Board = () => {
     };
 
     const isOutOfBorder = (head) => {
-        // const head = snakeData[snakeData.length - 1];
-        // console.log(head);
-
         if (head[0] >= 600 || head[1] >= 600 || head[0] < 0 || head[1] < 0) {
             return true;
         } else {
@@ -72,7 +90,6 @@ const Board = () => {
 
     const hasCollapsed = (head) => {
         let snake = [...snakeData];
-        // let head = snake[snake.length - 1];
         snake.pop();
 
         for (let i = 0; i < snake.length; i++) {
@@ -130,23 +147,22 @@ const Board = () => {
         } else {
             if (snakeEatTrap === true) {
                 // trap execution logic
-                // const effects = [flashUser, wizz];
                 const effects = [flashUser, wizz];
 
                 const selectedEffect = effects[Math.floor(Math.random() * effects.length)];
 
-                selectedEffect();
+                selectedEffect(mute);
+                score > 0 && setScore(score - 5);
             }
 
             if (snakeEatFood === true) {
 
-                mlem();
+                mlem(mute);
 
-                newSnakeData.unshift([]);
+                newSnakeData.unshift(newSnakeData[0]);
                 setScore(score + 10);
                 if (speed > 0.05) {
                     setSpeed(speed - 0.01);
-                    console.log("vitesse : ", speed);
                 }
             }
             setSnakeData(newSnakeData);
@@ -158,42 +174,7 @@ const Board = () => {
         if (canChangeDirection.current === false) return;
         canChangeDirection.current = false;
 
-        mode.includes("reversed")
-            ? reversedControls(e, direction, gamePaused, setGamePaused)
-            : defaultControls(e, direction, gamePaused, setGamePaused);
-
-        // switch (e.keyCode) {
-        //     case 32: // Space
-        //         setGamePaused(gamePaused ? false : true);
-        //         break;
-        //     case 38: // Up
-        //     case 90: // Z
-        //         if (direction.current !== "DOWN" && gamePaused === false) {
-        //             direction.current = "UP";
-        //         }
-        //         break;
-        //     case 40: // Down
-        //     case 83: // S
-        //         if (direction.current !== "UP" && gamePaused === false) {
-        //             direction.current = "DOWN";
-        //         }
-        //         break;
-        //     case 37: // Left
-        //     case 81: // Q
-        //         if (direction.current !== "RIGHT" && gamePaused === false) {
-        //             direction.current = "LEFT";
-        //         }
-        //         break;
-        //     case 39: // Rigth
-        //     case 68: // D
-        //         if (direction.current !== "LEFT" && gamePaused === false) {
-        //             direction.current = "RIGHT";
-        //         }
-        //         break;
-
-        //     default:
-        //         break;
-        // }
+        defaultControls(e, direction, gamePaused, setGamePaused);
     };
 
     const addItem = ({ getter, setter }) => {
@@ -216,7 +197,6 @@ const Board = () => {
     };
 
     const gameLoop = (time, deltaTime, frame) => {
-        // console.log(time, deltaTime, frame);
 
         timer.current += deltaTime * 0.001;
         foodTimer.current += deltaTime * 0.001;
@@ -232,8 +212,7 @@ const Board = () => {
             if (!gamePaused) addItem({ getter: trapArray, setter: setTrapArray });
         }
 
-        if (timer.current > (mode.includes("impossible") ? 0.02 : speed)) {
-            // console.log("Move snake");
+        if (timer.current > (speed)) {
             timer.current = 0;
             if (!gamePaused) moveSnake();
             canChangeDirection.current = true;
@@ -242,8 +221,6 @@ const Board = () => {
 
     const replay = () => {
         // replay game
-        // removeMode("impossible");
-        // removeMode("corner");
 
         setGameOver(false);
         setGamePaused(false);
@@ -277,6 +254,15 @@ const Board = () => {
 
     return (
         <>
+            <Audio />
+            <div className="flashbang"></div>
+
+            <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag 'n' drop some files here, or click to select files</p>
+                {skin && <img src={skin} style={{ width: "30px" }} alt="" />}
+            </div>
+
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
 
@@ -290,11 +276,9 @@ const Board = () => {
                 <span className={s.score}>Score: {score}</span>
                 <span className={s.death}>Death: {death}</span>
             </div>
-            {gameOver ? < GameOver score={score} death={death} replay={replay} /> : gamePaused ? < PauseScreen quitPause={quitPause} /> : null}
+            {gameOver ? < GameOver score={score} death={death} replay={replay} setPlay={setPlay} /> : gamePaused ? < PauseScreen setPlay={setPlay} quitPause={quitPause} /> : null}
         </>
     );
 }
 
 export default Board;
-
-// 32 -> space
