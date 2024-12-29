@@ -7,10 +7,10 @@ import PauseScreen from '../PauseScreen/PauseScreen';
 import useStore from '../../utils/store';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import Canvas from '../Canvas/Canvas';
+import Audio from '../Audio/Audio';
 
 const BoardChill = ({ setPlay }) => {
 
-    const { mute } = useStore();
 
     const [color, setColor] = useState('#FF0000');
     const [snakeData, setSnakeData] = useState([
@@ -141,6 +141,7 @@ const BoardChill = ({ setPlay }) => {
 
     return (
         <>
+            <Audio />
             <ColorPicker color={color} setColor={setColor} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
