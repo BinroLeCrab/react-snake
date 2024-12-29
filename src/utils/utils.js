@@ -138,7 +138,13 @@ export const flashUser = (mute) => {
 
 }
 
-export const wizz = () => {
+const wizzAudio = new Audio("/audio/wizz.mp3");
+
+
+export const wizz = (mute) => {
+    wizzAudio.currentTime = 0;
+
+    !mute && wizzAudio.play();
     gsap.to("#board", {
         duration: 0.05,
         x: "+=30%",

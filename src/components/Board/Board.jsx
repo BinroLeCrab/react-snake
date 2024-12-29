@@ -146,11 +146,11 @@ const Board = ({setPlay}) => {
         } else {
             if (snakeEatTrap === true) {
                 // trap execution logic
-                const effects = [() => flashUser(mute), wizz];
+                const effects = [flashUser, wizz];
 
                 const selectedEffect = effects[Math.floor(Math.random() * effects.length)];
 
-                selectedEffect();
+                selectedEffect(mute);
                 score > 0 && setScore(score - 5);
             }
 
