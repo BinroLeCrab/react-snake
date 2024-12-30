@@ -8,7 +8,7 @@ const ColorPicker= ({color, setColor}) => {
     }
 
     return (
-        <input type="color" onChange={onChange} defaultValue={color}/>
+        <input className={s["colorInput"]} type="color" onChange={onChange} defaultValue={color}/>
     );
 };
 
