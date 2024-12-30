@@ -9,6 +9,7 @@ import PauseScreen from '../PauseScreen/PauseScreen';
 import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
 import Audio from '../Audio/Audio';
+import Dropzone from '../Dropzone/Dropzone';
 
 const Board = ({setPlay}) => {
 
@@ -257,11 +258,7 @@ const Board = ({setPlay}) => {
             <Audio />
             <div className="flashbang"></div>
 
-            <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
-                {skin && <img src={skin} style={{ width: "30px" }} alt="" />}
-            </div>
+            <Dropzone getRootProps={getRootProps} getInputProps={getInputProps} />
 
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />

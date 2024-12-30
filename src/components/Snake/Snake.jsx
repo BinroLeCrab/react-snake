@@ -9,16 +9,21 @@ const Snake = ({ data, direction }) => {
 
     const getStyle = (dot, i) => {
 
-        if (i === 0) {
+        if (skin) {
             return {
                 transform: `translate(${dot[0]}px, ${dot[1]}px)`,
-                background: skin ? `url('${skin}') ${12 * i}px 0` : `url(./asset/Skin.png) -${direction.current === "RIGHT" ? 0 : direction.current === "DOWN" ? 12 : direction.current === "LEFT" ? 24 : 36}px 0`,
-                // backgroundSize: "auto 100%",
+                background: `url('${skin}') ${12 * i}px 0`,
+                backgroundSize: "cover",
+            }
+        }else if (i === 0) {
+            return {
+                transform: `translate(${dot[0]}px, ${dot[1]}px)`,
+                background: `url(./asset/Skin.png) -${direction.current === "RIGHT" ? 0 : direction.current === "DOWN" ? 12 : direction.current === "LEFT" ? 24 : 36}px 0`,
             }
         } else {
             return {
                 transform: `translate(${dot[0]}px, ${dot[1]}px)`,
-                background: skin ? `url('${skin}') ${12 * i}px 0` : `url(./asset/Skin.png) ${-12 * (0 - i)}px 12px`,
+                background: `url(./asset/Skin.png) ${-12 * (0 - i)}px 12px`,
                 // backgroundSize: "auto 100%",
             }
         }
