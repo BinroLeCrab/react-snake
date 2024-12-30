@@ -1,6 +1,13 @@
+*,
+*::before,
+*::after{
+  font-family: "Space Mono", sans-serif;
+}
+
 body {
   margin: 0;
   background-color: #1c1c1c;
+  font-family: "Space Mono", sans-serif;
 }
 
 .toggle-wrapper {
