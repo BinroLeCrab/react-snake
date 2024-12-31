@@ -52,6 +52,7 @@ const Board = ({setPlay}) => {
         console.log(file);
         const src = URL.createObjectURL(file[0]);
         setSkin(src);
+        document.activeElement.blur();
     };
 
     const gameIsOver = () => {
