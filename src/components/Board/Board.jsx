@@ -10,6 +10,7 @@ import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
 import Audio from '../Audio/Audio';
 import Dropzone from '../Dropzone/Dropzone';
+import PauseBtn from '../PauseBtn/PauseBtn';
 
 const Board = ({setPlay}) => {
 
@@ -260,6 +261,8 @@ const Board = ({setPlay}) => {
             <div className="flashbang"></div>
 
             <Dropzone getRootProps={getRootProps} getInputProps={getInputProps} />
+
+            <PauseBtn gamePaused={gamePaused} setGamePaused={setGamePaused} />
 
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
