@@ -1,4 +1,5 @@
 import CanvasImage from '../CanvasImage/CanvasImage';
+import CrtFilter from '../CrtFilter/CrtFilter';
 import s from './PauseScreen.module.scss';
 
 const PauseScreen = ({ quitPause, setPlay, restart, chill, gamePaused, canvasRef }) => {
@@ -21,7 +22,7 @@ const PauseScreen = ({ quitPause, setPlay, restart, chill, gamePaused, canvasRef
 
                 </div>
             </div>
-            <div className={s.crt}></div>
+            <CrtFilter />
         </>
     );
 }
