@@ -12,6 +12,7 @@ import PauseBtn from '../PauseBtn/PauseBtn';
 
 const BoardChill = ({ setPlay }) => {
 
+    const { setSkin } = useStore();
 
     const [color, setColor] = useState('#FF0000');
     const [snakeData, setSnakeData] = useState([
@@ -132,6 +133,7 @@ const BoardChill = ({ setPlay }) => {
     }
 
     useEffect(() => {
+        setSkin(null);
         window.addEventListener("keydown", onKeyDown);
         gsap.ticker.add(gameLoop);
 
