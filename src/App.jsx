@@ -6,6 +6,7 @@ import Mute from "./components/Mute/Mute";
 import { useState } from "react";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import BoardChill from "./components/BoardChill/BoardChill";
+import ScreenMobile from "./components/ScreenMobile/ScreenMobile";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <div>
+      <ScreenMobile />
       <Mute />
       {play === "classic" ?
         <Board setPlay={setPlay} />

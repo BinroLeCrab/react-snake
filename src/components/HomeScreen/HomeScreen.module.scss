@@ -1,0 +1,24 @@
+.HomeScreen {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+
+    background-color: #081132;
+
+    .HomeScreen__logo {
+        width:70vw;
+        min-width: 400px;
+        height: auto;
+    }
+
+    .HomeScreen__button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+}

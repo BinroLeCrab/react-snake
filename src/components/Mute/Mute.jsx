@@ -12,7 +12,9 @@ const Mute = () => {
 
     return (
         <button className={s["Mute-btn"]} onClick={handleClick}>
-            {mute ? "Unmute" : "Mute"}
+            {mute ? 
+            <img src="/asset/icon/speaker-x.svg" alt="Son désactivé" />
+            : <img src="/asset/icon/speaker-high.svg" alt="Son activé" />}
         </button>
     );
 };
