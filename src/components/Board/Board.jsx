@@ -210,7 +210,7 @@ const Board = ({setPlay}) => {
             if (!gamePaused) addItem({ getter: foodArray, setter: setFoodArray });
         }
 
-        if (trapTimer.current > 5 && trapArray.length < 3) {
+        if (trapTimer.current > 5 && trapArray.length < 10) {
             trapTimer.current = 0;
             if (!gamePaused) addItem({ getter: trapArray, setter: setTrapArray });
         }
