@@ -275,7 +275,6 @@ const Board = ({setPlay}) => {
                     < Item key={coordinates.id} coordinates={coordinates} type="trap" />
                 ))}
                 <span className={s.score}>Score: {score}</span>
-                <span className={s.death}>Death: {death}</span>
             </div>
             {gameOver ? < GameOver score={score} death={death} replay={replay} setPlay={setPlay} /> : gamePaused ? < PauseScreen setPlay={setPlay} quitPause={quitPause} /> : null}
         </>
