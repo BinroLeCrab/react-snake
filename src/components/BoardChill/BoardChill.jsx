@@ -8,9 +8,11 @@ import useStore from '../../utils/store';
 import ColorPicker from '../ColorPicker/ColorPicker';
 import Canvas from '../Canvas/Canvas';
 import Audio from '../Audio/Audio';
+import PauseBtn from '../PauseBtn/PauseBtn';
 
 const BoardChill = ({ setPlay }) => {
 
+    const { setSkin } = useStore();
 
     const [color, setColor] = useState('#FF0000');
     const [snakeData, setSnakeData] = useState([
@@ -131,6 +133,7 @@ const BoardChill = ({ setPlay }) => {
     }
 
     useEffect(() => {
+        setSkin(null);
         window.addEventListener("keydown", onKeyDown);
         gsap.ticker.add(gameLoop);
 
@@ -144,6 +147,7 @@ const BoardChill = ({ setPlay }) => {
         <>
             <Audio chill/>
             <ColorPicker color={color} setColor={setColor} />
+            <PauseBtn gamePaused={gamePaused} setGamePaused={setGamePaused} />
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
                 < Canvas pixels={pixelArray} canvasRef={canvasRef} />

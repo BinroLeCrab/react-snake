@@ -1,124 +1,55 @@
 .pauseScreen {
     position: fixed;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    left: 0;
+    top: 0;
+
     width: 100vw;
     height: 100vh;
-    z-index: 100;
-    color: white;
-    display: flex;
-    flex-direction: column;
+
+    display: grid;
+    padding: 20vh 0;
+    grid-template-rows: min-content max-content;
     align-items: center;
-    justify-content: center;
-    left: 0;
-    top: 0;
-}
+    justify-items: center;
+    gap: 60px;
 
-.crt {
-    background: linear-gradient(to top, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.5), rgb(51, 51, 51, 0.5), rgb(51, 51, 51, 0.5));
-    background-size: 100% 3px;
-    animation: scanlines infinite 3s linear, flicker 5s infinite; 
-    width: 100%;
-    height: 100vh;
-    z-index: 99;
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 0.2;
-    backdrop-filter: blur(4px);
-}
+    color: white;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    text-align: center;
 
-@keyframes scanlines {
-    from {
-        background-position: 0 0;
+    z-index: 100;
+
+    &__title {
+        font-weight: bold;
+        text-transform: uppercase;
     }
 
-    to {
-        background-position: 0 10px;
-    }
-}
-
-@keyframes flicker {
-    0% {
-        opacity: 0.5;
+    &__content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items:center;
+        justify-content: center;
     }
 
-    5% {
-        opacity: 0.4;
-    }
+    &__column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
 
-    10% {
-        opacity: 0.5;
-    }
+        width: 40%;
+        min-width: 400px;
 
-    15% {
-        opacity: 0.7;
-    }
+        &--btn {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, min-content);
 
-    20% {
-        opacity: 0.4;
-    }
-
-    25% {
-        opacity: 0.6;
-    }
-
-    30% {
-        opacity: 0.5;
-    }
-
-    35% {
-        opacity: 0.7;
-    }
-
-    40% {
-        opacity: 0.4;
-    }
-
-    45% {
-        opacity: 0.6;
-    }
-
-    50% {
-        opacity: 0.7;
-    }
-
-    55% {
-        opacity: 0.4;
-    }
-
-    60% {
-        opacity: 0.5;
-    }
-
-    65% {
-        opacity: 0.6;
-    }
-
-    70% {
-        opacity: 0.5;
-    }
-
-    75% {
-        opacity: 0.4;
-    }
-
-    80% {
-        opacity: 0.7;
-    }
-
-    85% {
-        opacity: 0.6;
-    }
-
-    90% {
-        opacity: 0.7;
-    }
-
-    95% {
-        opacity: 0.4;
-    }
-
-    100% {
-        opacity: 0.5;
+            & :last-child {
+                grid-column: 1 / -1;
+            }
+        }
     }
 }

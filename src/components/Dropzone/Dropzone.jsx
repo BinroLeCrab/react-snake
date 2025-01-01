@@ -8,22 +8,20 @@ const Dropzone = ({ getRootProps, getInputProps }) => {
     return (
         <div {...getRootProps({ className: s["dropzone"] })}>
             <input {...getInputProps()} />
-            <p>Drag 'n' drop un fichier ici, ou clique pour en séléctionner un</p>
-            {skin ? (
-                <div className={s["skin"]}>
-                    <img src={skin} style={{ width: "30px" }} alt="" />
-                    <img src={skin} style={{ width: "30px" }} alt="" />
-                    <img src={skin} style={{ width: "30px" }} alt="" />
-                </div>
-            )
-                : (
+            <p className={s["dropzone__title"]}>Skin</p>
+            <div className={s["dropzone__content"]}>
+                {skin ? (
                     <div className={s["skin"]}>
-                        <img src={skin} style={{ width: "30px" }} alt="" />
-                        <img src={skin} style={{ width: "30px" }} alt="" />
-                        <img src={skin} style={{ width: "30px" }} alt="" />
+                        <img src={skin} className={s["skin__pixel"]} alt="" />
+                        <img src={skin} className={s["skin__pixel"]} alt="" />
+                        <img src={skin} className={s["skin__pixel"]} alt="" />
                     </div>
                 )
-            }
+                    : (
+                        <p className={s["dropzone__description"]}>Drag 'n' drop, ou cliquez.</p>
+                    )
+                }
+            </div>
         </div>
     );
 };

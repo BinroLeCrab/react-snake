@@ -10,6 +10,7 @@ import {useDropzone} from 'react-dropzone';
 import useStore from '../../utils/store';
 import Audio from '../Audio/Audio';
 import Dropzone from '../Dropzone/Dropzone';
+import PauseBtn from '../PauseBtn/PauseBtn';
 
 const Board = ({setPlay}) => {
 
@@ -209,7 +210,7 @@ const Board = ({setPlay}) => {
             if (!gamePaused) addItem({ getter: foodArray, setter: setFoodArray });
         }
 
-        if (trapTimer.current > 5 && trapArray.length < 3) {
+        if (trapTimer.current > 5 && trapArray.length < 10) {
             trapTimer.current = 0;
             if (!gamePaused) addItem({ getter: trapArray, setter: setTrapArray });
         }
@@ -261,6 +262,8 @@ const Board = ({setPlay}) => {
 
             <Dropzone getRootProps={getRootProps} getInputProps={getInputProps} />
 
+            <PauseBtn gamePaused={gamePaused} setGamePaused={setGamePaused} />
+
             <div className={s.board} id='board'>
                 < Snake data={snakeData} direction={direction} />
 
@@ -272,7 +275,6 @@ const Board = ({setPlay}) => {
                     < Item key={coordinates.id} coordinates={coordinates} type="trap" />
                 ))}
                 <span className={s.score}>Score: {score}</span>
-                <span className={s.death}>Death: {death}</span>
             </div>
             {gameOver ? < GameOver score={score} death={death} replay={replay} setPlay={setPlay} /> : gamePaused ? < PauseScreen setPlay={setPlay} quitPause={quitPause} /> : null}
         </>

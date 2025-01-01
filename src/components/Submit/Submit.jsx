@@ -43,8 +43,9 @@ const Submit = ({ score, death }) => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
+                placeholder="Votre nom"
             />
+            <button type="submit">Enregister</button>
         </form>
     )
 }

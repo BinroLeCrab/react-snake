@@ -23,6 +23,7 @@ const Snake = ({ data, direction }) => {
                     transform: `translate(${dot[0]}px, ${dot[1]}px)`,
                     background: `url('${skin}')`,
                     backgroundSize: "cover",
+                    backgroundPosition: "center",
                 }
             }
         }else if (i === 0) {

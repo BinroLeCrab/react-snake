@@ -13,8 +13,8 @@ const CanvasImage = ({ canvasRef, gamePaused }) => {
 
     return (
         <>
-            <img src={""} ref={imageRef} alt="" className={s.canvasImage} />
-            <a href={""} ref={lienRef} download="snake.png" className={s.download}>Télécharger l'image</a>
+            <img src={""} ref={imageRef} alt="" className={s["canvasImage"]} />
+            <a href={""} ref={lienRef} download="snake.png" className={s["downloadLink"]}>Télécharger l'image</a>
         </>
 
     );

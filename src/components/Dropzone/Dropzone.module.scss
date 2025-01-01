@@ -1,10 +1,48 @@
 .dropzone {
     position: fixed;
-    width: 500px;
-    height: 60px;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    height: 100px;
     top: 10px;
     left: 10px;
-    background-color: #f1f1f1;
+    background-color: #2C3B5C;
+    border-radius: 10px;
+    border: 1px solid #081132;
+    outline: 5px solid #3A466C;
+    color: white;
+    padding: 8px 10px;
     cursor: pointer;
     z-index: 200;
+
+    &__content {
+        height:100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    &__description {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+.skin {
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+    width: 90px;
+    height: 30px;
+
+    .skin__pixel {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+    }
 }
